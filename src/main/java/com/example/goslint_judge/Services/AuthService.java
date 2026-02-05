@@ -44,12 +44,24 @@ public class AuthService {
         user.setEmail(request.getEmail().trim().toLowerCase());
         user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
 
+        user.setFirstName(request.getFirstName().trim());
+        user.setLastName(request.getLastName().trim());
+        user.setUniversity(request.getUniversity().trim());
+        user.setCountry(request.getCountry().trim());
+        user.setStudentId(request.getStudentId().trim());
+
         User saved = userRepository.save(user);
 
         return new UserResponse(
                 saved.getId(),
                 saved.getUsername(),
                 saved.getEmail(),
+                saved.getCreatedAt(),
+                saved.getFirstName(),
+                saved.getLastName(),
+                saved.getUniversity(),
+                saved.getCountry(),
+                saved.getStudentId(),
                 saved.getCreatedAt()
         );
     }
@@ -65,6 +77,12 @@ public class AuthService {
                         user.getId(),
                         user.getUsername(),
                         user.getEmail(),
+                        user.getCreatedAt(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getUniversity(),
+                        user.getCountry(),
+                        user.getStudentId(),
                         user.getCreatedAt()
                 ))
                 .collect(Collectors.toList());

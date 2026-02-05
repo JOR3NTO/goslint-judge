@@ -31,19 +31,45 @@ public class User {
 
     @Column(nullable = false, length = 32)
     private String role = "USER";
+
+
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
+    @Column(name = "university", nullable = false)
+    private String university;
+
+    @Column(name = "country", nullable = false)
+    private String country;
+
+    @Column(name = "student_id", nullable = false, unique = true)
+    private String studentId;
     
+
     public User() {
 
     }
 
-    public User(Long id, String username, String email, String passwordHash, Instant createdAt, String role) {
+
+    public User(Long id, String username, String email, String passwordHash, Instant createdAt, String role,
+            String firstName, String lastName, String university, String country, String studentId) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.passwordHash = passwordHash;
         this.createdAt = createdAt;
         this.role = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.university = university;
+        this.country = country;
+        this.studentId = studentId;
     }
+
+
 
     public Long getId() {
         return id;
@@ -92,6 +118,48 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+    
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(String university) {
+        this.university = university;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
 
 
 }
