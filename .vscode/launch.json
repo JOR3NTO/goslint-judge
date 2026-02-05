@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "GoslintJudgeApplication",
+            "request": "launch",
+            "mainClass": "com.example.goslint_judge.GoslintJudgeApplication",
+            "projectName": "goslint-judge",
+            "env": {
+                "DB_PASSWORD": "JorentO215a3sur34*"
+            }
+        }
+    ]
+}
