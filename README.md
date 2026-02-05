@@ -20,14 +20,13 @@ Se implementa con:
 
   - BD: `goslint_judge`
   - Usuario: `goslint_judge`
-  - Password: `JorentO215a3sur34*`
 
 Configurados en `src/main/resources/application.properties`:
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/goslint_judge
 spring.datasource.username=goslint_judge
-spring.datasource.password=JorentO215a3sur34*
+
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
