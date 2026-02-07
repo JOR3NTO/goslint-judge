@@ -5,13 +5,16 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.goslint_judge.Services.AuthService;
 import com.example.goslint_judge.models.RegisterRequest;
+import com.example.goslint_judge.models.UpdateUserRequest;
 import com.example.goslint_judge.models.UserResponse;
 
 @RestController
@@ -39,5 +42,14 @@ public class AuthController {
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         List<UserResponse> users = authService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<UserResponse> updateUser(
+            @PathVariable Long id,
+            @RequestBody UpdateUserRequest request) {
+
+        UserResponse updated = authService.updateUser(id, request);
+        return ResponseEntity.ok(updated);
     }
 }
