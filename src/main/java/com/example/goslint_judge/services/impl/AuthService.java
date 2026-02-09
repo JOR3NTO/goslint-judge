@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.goslint_judge.config.JwtTokenProvider;
 import com.example.goslint_judge.models.LoginRequest;
 import com.example.goslint_judge.models.RegisterRequest;
+import com.example.goslint_judge.models.UpdateUserRequest;
 import com.example.goslint_judge.models.User;
 import com.example.goslint_judge.models.UserResponse;
 import com.example.goslint_judge.repository.UserRepository;
@@ -124,5 +125,43 @@ public class AuthService {
                         user.getCreatedAt()
                 ))
                 .collect(Collectors.toList());
+    }
+
+
+    @Transactional
+    public UserResponse updateUser(Long id, UpdateUserRequest request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+
+        if (request.getFirstName() != null) {
+            user.setFirstName(request.getFirstName().trim());
+        }
+        if (request.getLastName() != null) {
+            user.setLastName(request.getLastName().trim());
+        }
+        if (request.getUniversity() != null) {
+            user.setUniversity(request.getUniversity().trim());
+        }
+        if (request.getCountry() != null) {
+            user.setCountry(request.getCountry().trim());
+        }
+        if (request.getStudentId() != null) {
+            user.setStudentId(request.getStudentId().trim());
+        }
+
+        User saved = userRepository.save(user);
+
+        return new UserResponse(
+                saved.getId(),
+                saved.getUsername(),
+                saved.getEmail(),
+                saved.getCreatedAt(),
+                saved.getFirstName(),
+                saved.getLastName(),
+                saved.getUniversity(),
+                saved.getCountry(),
+                saved.getStudentId(),
+                saved.getCreatedAt()
+        );
     }
 }
