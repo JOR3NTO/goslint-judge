@@ -1,4 +1,4 @@
-package com.example.goslint_judge.Services;
+package com.example.goslint_judge.services.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.goslint_judge.config.JwtTokenProvider;
+import com.example.goslint_judge.models.LoginRequest;
 import com.example.goslint_judge.models.RegisterRequest;
 import com.example.goslint_judge.models.User;
 import com.example.goslint_judge.models.UserResponse;
@@ -18,9 +20,12 @@ public class AuthService {
     
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository,
+                       JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     /**
@@ -63,6 +68,39 @@ public class AuthService {
                 saved.getCountry(),
                 saved.getStudentId(),
                 saved.getCreatedAt()
+        );
+    }
+
+    @Transactional
+    public String login(LoginRequest request) {
+        String usernameOrEmail = request.getUsernameOrEmail().trim();
+
+        User user = userRepository.findByUsername(usernameOrEmail)
+                .or(() -> userRepository.findByEmail(usernameOrEmail))
+                .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
+            throw new IllegalArgumentException("Invalid credentials");
+        }
+
+        return jwtTokenProvider.generateToken(user);
+    }
+
+    public UserResponse getUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return new UserResponse(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getCreatedAt(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUniversity(),
+                user.getCountry(),
+                user.getStudentId(),
+                user.getCreatedAt()
         );
     }
 
