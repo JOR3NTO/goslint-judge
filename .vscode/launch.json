@@ -12,7 +12,7 @@
             "name": "GoslintJudgeApplication",
             "request": "launch",
             "mainClass": "com.example.goslint_judge.GoslintJudgeApplication",
-            "projectName": "goslint-judge",
+            "projectName": "goslint-judge"
         }
     ]
 }
