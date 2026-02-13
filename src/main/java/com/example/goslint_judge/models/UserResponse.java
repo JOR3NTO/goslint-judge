@@ -16,6 +16,21 @@ public class UserResponse {
     private String studentId;
 
 
+    /**
+     * Crea una nueva instancia de {@code UserResponse}.
+     *
+     * @param id          identificador único del usuario.
+     * @param username    nombre de usuario visible en la plataforma.
+     * @param email       correo electrónico asociado a la cuenta del usuario.
+     * @param createdAt   marca de tiempo que indica la fecha y hora de creación de la cuenta del usuario.
+     * @param firstName   nombre del usuario.
+     * @param lastName    apellido del usuario.
+     * @param university  universidad a la que pertenece el usuario.
+     * @param country     país de residencia del usuario.
+     * @param studentId   identificador de estudiante proporcionado por la institución (si aplica).
+     * @param createdAt1  marca de tiempo adicional relacionada con la creación o registro del usuario
+     *                    (por ejemplo, para auditoría o trazabilidad).
+     */
     public UserResponse(Long id,
                         String username,
                         String email,
